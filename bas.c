@@ -161,8 +161,8 @@ void print_stat(const char* str) {
 
 void main() {
     byte c;
-    char str[80];
-    clock_t goal = 0;
+    //char str[80];
+    clock_t interval = CLOCKS_PER_SEC/10;
     clock_t clk = 0;
     setup();
     init_player();
@@ -173,15 +173,12 @@ void main() {
             if(c==CH_ESC) return;
             if(c==CH_CURS_RIGHT) move_right(&player);
             if(c==CH_CURS_LEFT) {
-                sprintf(str, "clk: %d, goal: %d", clock (), goal);
-                print_stat(str);
+                //sprintf(str, "clk: %d, goal: %d", clock (), goal);
+                //print_stat(str);
             }
         }
-        //animate_sprite(&player);
-        //delay(30);
         clk = clock();
-        if((long) (goal - clk) < 1) {
-            goal = clk + CLOCKS_PER_SEC/10;
+        if(clk%interval==0) {
             animate_sprite(&player);
             //sprintf(str, "off: %d, skip: %d, pos: %d, right: %d, moving: %d", player.frame_offset, player.skipped_frames, player.pos, player.faceright, player.moving);
             //sprintf(str, "clk: %d, goal: %d      ", clk, goal);
